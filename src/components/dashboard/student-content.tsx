@@ -1,20 +1,19 @@
 "use client";
 
+import { useState } from "react";
+import Image from 'next/image';
+import carrer from "@/assets/images/carrer.png";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
-import { useState } from "react";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
   Tooltip,
-  Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+  ResponsiveContainer,
+} from "recharts";
 
 export function StudentContent() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -29,46 +28,6 @@ export function StudentContent() {
     ]
   };
 
-  const academicData = {
-    labels: ['Math', 'Science', 'English', 'CS', 'Aptitude', 'Soft Skills'],
-    datasets: [
-      {
-        label: 'Performance %',
-        data: [70, 85, 60, 90, 75, 80],
-        backgroundColor: '#10b981',
-        borderRadius: 6,
-      },
-    ],
-  };
-
-  const academicOptions = {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      title: { display: false },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 100,
-        ticks: {
-          color: '#6b7280',
-        },
-        grid: {
-          color: '#e5e7eb',
-        },
-      },
-      x: {
-        ticks: {
-          color: '#6b7280',
-        },
-        grid: {
-          display: false,
-        },
-      },
-    },
-  };
-
   const upcomingTasks = [
     { title: "Code hour", date: "24 Sep 2019, Friday", color: "bg-pink-100" },
     { title: "Aptitude test", date: "05 Oct 2019, Monday", color: "bg-blue-100" },
@@ -76,20 +35,29 @@ export function StudentContent() {
     { title: "Eng - Vocabulary test", date: "05 Oct 2019, Monday", color: "bg-gray-100 text-muted line-through" },
   ];
 
+  const academicData = [
+    { subject: "Math", score: 85 },
+    { subject: "Physics", score: 72 },
+    { subject: "Chemistry", score: 90 },
+    { subject: "English", score: 65 },
+    { subject: "CS", score: 78 },
+    { subject: "Elective", score: 88 },
+  ];
+
   return (
     <div className="flex flex-col lg:flex-row gap-6 px-6 py-4 bg-background">
       {/* Main Content Area */}
       <div className="flex-1 space-y-6">
         {/* Hero Banner */}
-        <Card className="bg-surface">
-          <CardContent className="flex flex-col md:flex-row justify-between items-center p-6 gap-4">
+        <Card className="bg-ring">
+          <CardContent className="flex flex-col md:flex-row justify-between items-center pl-6 gap-4">
             <div>
               <h2 className="text-xl md:text-2xl font-bold text-primary">Step Up Your Career Game!</h2>
               <p className="mt-2 max-w-md text-sm text-foreground">
                 Develop essential career skills and achieve your goals with structured learning—guided by expert mentors to help you grow
               </p>
             </div>
-            <img src="/api/placeholder/200/150" alt="Career" className="w-40 md:w-48" />
+            <Image src={carrer} alt="Career" className="w-40 md:w-48"></Image>
           </CardContent>
         </Card>
 
@@ -135,12 +103,23 @@ export function StudentContent() {
             </CardContent>
           </Card>
 
+          {/* Recharts Academic Performance Card */}
           <Card className="bg-surface text-card-foreground">
             <CardHeader>
               <CardTitle className="text-base font-medium">Academic Performance</CardTitle>
             </CardHeader>
             <CardContent>
-              <Bar data={academicData} options={academicOptions} className="w-full h-[200px]" />
+              <div className="h-[220px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={academicData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="subject" />
+                    <YAxis domain={[0, 100]} />
+                    <Tooltip />
+                    <Bar dataKey="score" fill="#10b981" radius={[6, 6, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </CardContent>
           </Card>
         </div>

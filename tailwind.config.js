@@ -18,7 +18,7 @@ module.exports = {
         muted: "#6b7280", // Slate grey
         dark: "#000000", // Black
         border: "#ffffff1a", // White with 10% opacity
-        ring: "#737373",  // Medium gray
+        ring: "#58595B73",  // Medium gray
         foreground: "#000000", // Black 
       }
     },

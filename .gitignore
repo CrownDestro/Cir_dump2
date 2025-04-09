@@ -1,3 +1,51 @@
+# Node modules
 node_modules/
-node_modules/
-node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build output
+.next/
+dist/
+out/
+build/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sw?
+
+# Dependency directories
+.pnp/
+.pnp.js
+
+# Testing
+coverage/
+
+# Next.js export
+out/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional: ignore local images or uploads
+public/uploads/
+public/temp/
+
+# Optional: Tailwind JIT cache
+.tailwind/
+
+# Optional: local
